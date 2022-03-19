@@ -1,0 +1,25 @@
+{
+  "name": "typescript_room_controller",
+  "version": "1.0.0",
+  "repository": "git@github.com:weneedparty/typescript_room_controller.git",
+  "author": "yingshaoxo <yingshaoxo@gmail.com>",
+  "license": "GPL-3.0",
+  "main": "src/index.ts",
+  "types": "dist/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc-watch --onSuccess 'node ./dist/index.js' --onFailure 'Compilation Failed!'"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "eslint": "^8.11.0",
+    "jest": "^27.5.1",
+    "tsc-watch": "^4.6.2",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "livekit-server-sdk": "^0.5.9"
+  },
+}

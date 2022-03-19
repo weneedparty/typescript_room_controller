@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "dist",
+        "stripInternal": true, // 針對加上 @internal 的方法不會產生對應的 Type Declaration 檔（例如針對測試寫的函式）
+        "types": [], // 在編譯時要一起包含的 declaration 檔
+        "skipLibCheck": true,
+        "target": "es2021",
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": false,
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
