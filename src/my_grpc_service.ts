@@ -23,7 +23,7 @@ const MyRoomControlService: room_control_service_grpc_pb.IRoomControlServiceServ
 
         svc.createRoom({
             name: call.request.getRoomname(),
-            emptyTimeout: 10,
+            emptyTimeout: 60,
             maxParticipants: 5
         }).then((room: Room) => {
             console.log(`room created: ${room.name}`);
@@ -41,6 +41,7 @@ const MyRoomControlService: room_control_service_grpc_pb.IRoomControlServiceServ
         try {
             const at = new AccessToken(apiKeyAndValueObject.apiKey, apiKeyAndValueObject.apiValue, {
                 identity: call.request.getIdentity(),
+                // name: call.request.getIdentity()
             });
             at.addGrant({ roomJoin: true, room: call.request.getRoomname(), canPublish: true, canSubscribe: true });
             response.setAccesstoken(at.toJwt());

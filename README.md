@@ -12,7 +12,7 @@ docker run -d -p 7880:7880 \
     -v $PWD/livekit.yaml:/livekit.yaml \
     livekit/livekit-server \
     --config /livekit.yaml \
-    --node-ip 127.0.0.1
+    --node-ip 192.168.96.35
 ```
 
 ## run
