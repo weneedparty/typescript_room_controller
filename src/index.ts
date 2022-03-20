@@ -3,13 +3,18 @@ import * as fs from 'fs';
 import path = require('path');
 import { exit } from 'process';
 
+import { run } from './my_grpc_service';
+
 const apiKeyAndValueObject = {
     apiKey: '',
     apiValue: ''
 }
 
 try {
-    const the_path = path.join(__dirname, 'livekit.yaml');
+    let the_path = path.join(__dirname, 'livekit.yaml');
+    if (!fs.existsSync(the_path)) {
+        the_path = path.join(__dirname, '../livekit.yaml');
+    }
     const doc = yaml.load(fs.readFileSync(the_path).toString()) as any;
     if (doc?.keys) {
         // console.log(doc.keys);
@@ -30,6 +35,13 @@ if (apiKeyAndValueObject.apiKey.length == 0 || apiKeyAndValueObject.apiValue.len
 
 
 console.log(apiKeyAndValueObject);
+
+
+
+run()
+
+
+
 
 // import { AccessToken } from 'livekit-server-sdk';
 

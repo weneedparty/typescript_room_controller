@@ -8,7 +8,8 @@
   "types": "dist/index.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "bash copy_files.sh && tsc-watch --onSuccess 'node ./dist/index.js'  --onFailure 'Compilation Failed!'"
+    "dev": "bash copy_files.sh && tsc-watch --onSuccess 'node ./dist/index.js'  --onFailure 'Compilation Failed!'",
+    "start": "ts-node ./src/index.ts"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.5",
@@ -17,10 +18,14 @@
     "@typescript-eslint/parser": "^5.15.0",
     "eslint": "^8.11.0",
     "jest": "^27.5.1",
+    "ts-node": "^10.7.0",
+    "ts-protoc-gen": "^0.15.1-pre.a71b34e",
     "tsc-watch": "^4.6.2",
     "typescript": "^4.6.2"
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.5.9",
+    "grpc-tools": "^1.11.2",
     "js-yaml": "^4.1.0",
     "livekit-server-sdk": "^0.5.9"
   }
