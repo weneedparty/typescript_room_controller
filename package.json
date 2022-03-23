@@ -8,7 +8,7 @@
   "types": "dist/index.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "bash copy_files.sh && tsc-watch --onSuccess 'node ./dist/index.js'  --onFailure 'Compilation Failed!'",
+    "dev": "sh copy_files.sh && tsc-watch --onSuccess 'node ./dist/index.js'  --onFailure 'Compilation Failed!'",
     "start": "ts-node ./src/index.ts"
   },
   "devDependencies": {
