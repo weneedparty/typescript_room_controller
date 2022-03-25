@@ -7,7 +7,12 @@ import { AccessToken, RoomServiceClient, Room } from 'livekit-server-sdk';
 
 import { apiKeyAndValueObject } from './store';
 
-const livekitHost = 'http://127.0.0.1:7880';
+const theLiveKitControlPort = '7880';
+let livekitHost = `http://0.0.0.0:${theLiveKitControlPort}`;
+if (process?.env?.livekit_NETWORK_NAME) {
+    livekitHost = `http://${process.env.livekit_NETWORK_NAME}:${theLiveKitControlPort}`;
+}
+console.log(livekitHost)
 const svc = new RoomServiceClient(livekitHost, apiKeyAndValueObject.apiKey, apiKeyAndValueObject.apiValue);
 
 const MyRoomControlService: room_control_service_grpc_pb.IRoomControlServiceServer = {
@@ -20,6 +25,8 @@ const MyRoomControlService: room_control_service_grpc_pb.IRoomControlServiceServ
 
     createRoom: function (call: grpc.ServerUnaryCall<room_control_service_pb.CreateRoomRequest, room_control_service_pb.CreateRoomResponse>, callback: grpc.sendUnaryData<room_control_service_pb.CreateRoomResponse>): void {
         const response = new room_control_service_pb.CreateRoomResponse();
+
+        console.log(call.request);
 
         svc.createRoom({
             name: call.request.getRoomname(),
@@ -38,6 +45,8 @@ const MyRoomControlService: room_control_service_grpc_pb.IRoomControlServiceServ
     allowJoin: function (call: grpc.ServerUnaryCall<room_control_service_pb.AllowJoinRequest, room_control_service_pb.AllowJoinResponse>, callback: grpc.sendUnaryData<room_control_service_pb.AllowJoinResponse>): void {
         const response = new room_control_service_pb.AllowJoinResponse();
 
+        console.log(call.request);
+
         try {
             const at = new AccessToken(apiKeyAndValueObject.apiKey, apiKeyAndValueObject.apiValue, {
                 identity: call.request.getIdentity(),
@@ -55,6 +64,8 @@ const MyRoomControlService: room_control_service_grpc_pb.IRoomControlServiceServ
     listRooms: function (call: grpc.ServerUnaryCall<room_control_service_pb.ListRoomsRequest, room_control_service_pb.ListRoomsResponse>, callback: grpc.sendUnaryData<room_control_service_pb.ListRoomsResponse>): void {
         const response = new room_control_service_pb.ListRoomsResponse();
 
+        console.log(call.request);
+
         svc.listRooms().then((rooms: Room[]) => {
             // console.log(rooms);
             response.setRoomsList(rooms.map((room: Room) => {
@@ -69,6 +80,8 @@ const MyRoomControlService: room_control_service_grpc_pb.IRoomControlServiceServ
     },
     deleteRoom: function (call: grpc.ServerUnaryCall<room_control_service_pb.DeleteRoomRequest, room_control_service_pb.DeleteRoomResponse>, callback: grpc.sendUnaryData<room_control_service_pb.DeleteRoomResponse>): void {
         const response = new room_control_service_pb.DeleteRoomResponse();
+
+        console.log(call.request);
 
         svc.deleteRoom(call.request.getRoomname()).then(() => {
             console.log(`room deleted: ${call.request.getRoomname()}`);
@@ -86,7 +99,7 @@ export const run = () => {
     const server = new grpc.Server();
 
     server.addService(room_control_service_grpc_pb.RoomControlServiceService, MyRoomControlService);
-    server.bindAsync("127.0.0.1:40053", grpc.ServerCredentials.createInsecure(), (err, port) => {
+    server.bindAsync("0.0.0.0:40053", grpc.ServerCredentials.createInsecure(), (err, port) => {
         if (err) throw err;
 
         console.log(`\nServer started, listening on port ${port}`);

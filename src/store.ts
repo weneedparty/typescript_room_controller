@@ -31,4 +31,4 @@ if (apiKeyAndValueObject.apiKey.length == 0 || apiKeyAndValueObject.apiValue.len
     exit(0);
 }
 
-console.log(apiKeyAndValueObject);
+// console.log(apiKeyAndValueObject);
