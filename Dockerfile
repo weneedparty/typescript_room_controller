@@ -8,7 +8,7 @@ COPY ./package.json /tmp/package.json
 RUN apk add build-base
 RUN apk add alpine-sdk
 RUN apk add --no-cache python3 make g++
-RUN npm install
+RUN npm --registry https://registry.npm.taobao.org install
 
 FROM node:alpine as app
 
