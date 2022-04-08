@@ -15,6 +15,8 @@ docker run -d -p 7880:7880 \
     --node-ip 192.168.50.189
 ```
 
+> set `use_external_ip` to true
+
 ## run
 ```
 yarn dev
