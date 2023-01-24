@@ -1,5 +1,5 @@
 # typescript_room_controller
-Here we are going to use typescript to controller the livekit rooms.
+Here we are going to use typescript to control the livekit rooms.
 
 ## set up `livekit` docker container
 ```bash
